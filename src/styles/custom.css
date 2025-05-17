@@ -1,0 +1,20 @@
+/* src/styles/custom.css */
+
+/* Estilos generales para el cuerpo de la página */
+body {
+  background-color: #f8f9fa; /* Un gris claro de Bootstrap como color de fondo */
+}
+
+/* Estilo opcional para las tarjetas */
+.card {
+  border: none; /* Elimina el borde por defecto */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Agrega una sombra suave */
+  transition: transform 0.2s ease-in-out; /* Añade una transición al pasar el ratón */
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Levanta la tarjeta ligeramente al pasar el ratón */
+}
+
+/* Ajustes de espaciado si son necesarios (ej: para el contenido principal) */
+/* Puedes añadir más estilos aquí según tu gusto */

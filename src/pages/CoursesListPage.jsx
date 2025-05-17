@@ -1,31 +1,67 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import FilterBar from '../components/FilterBar'; // Importa la barra de filtros
-import CourseCard from '../components/CourseCard'; // Importa la tarjeta de curso
+import { Container, Row, Col, Button, Card } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
 import imagenTaller from '../assets/images/Taller.png';
+import imagenTics from '../assets/images/Tecnologia.avif';
 import imagenPractica from '../assets/images/Practica.jpg';
-import imagenTecnologia from '../assets/images/Tecnologia.avif';
 
-// Datos de ejemplo (simulando lo que vendría de tu backend)
-const mockCourses = [
-  { id: 1, title: 'TALLER III', category: 'Informática', imageUrl: imagenTaller }, // Reemplaza URL_DE_IMAGEN_1 con una URL real
-  { id: 2, title: 'Tecnología III', category: 'Informática', imageUrl: imagenPractica }, // Reemplaza URL_DE_IMAGEN_2
-  { id: 3, title: 'Práctica supervisada', category: 'Informática', imageUrl: imagenTecnologia }, // Reemplaza URL_DE_IMAGEN_3
-  // Agrega más cursos aquí
+const fixedCourses = [
+  {
+    id: 'Taller',
+    title: 'TALLER III',
+    category: 'Informática',
+    imageUrl: imagenTaller
+  },
+  {
+    id: 'TICs',
+    title: 'TICs',
+    category: 'Informática',
+    imageUrl: imagenTics
+  },
+  {
+    id: 'Practica',
+    title: 'Práctica Supervisada',
+    category: 'Informática',
+    imageUrl: imagenPractica
+  },
 ];
 
-function CoursesListPage() {
-  return (
-    <Container fluid> {/* O Container si quieres que el contenido tenga un ancho fijo */}
-      {/* Barra superior de filtros y búsqueda */}
-      <FilterBar />
 
-      {/* Cuadrícula de tarjetas de cursos */}
-      <Row xs={1} md={2} lg={3} className="g-4"> {/* xs, md, lg definen cuántas columnas por fila según el tamaño de pantalla. g-4 añade espacio entre tarjetas */}
-        {/* Mapea sobre los datos de los cursos y renderiza un CourseCard por cada uno */}
-        {mockCourses.map(course => (
-          <Col key={course.id}> {/* La clave es importante para React */}
-            <CourseCard course={course} /> {/* Pasa el objeto course como prop */}
+
+
+function CoursesListPage() {
+  const navigate = useNavigate();
+
+
+  return (
+    <Container fluid className="mt-4">
+      <div className="mb-3 text-end">
+        <Link to="/posts">
+          <Button variant="info">Ver Todas las Publicaciones</Button>
+        </Link>
+      </div>
+
+      <Row xs={1} md={2} lg={3} className="g-4 justify-content-center">
+        {fixedCourses.map(course => (
+          <Col key={course.id} xs="auto" md="auto" lg="auto">
+            <Card style={{ width: '18rem' }} className="h-100">
+              <div style={{ position: 'relative' }}>
+                <Card.Img variant="top" src={course.imageUrl} alt={course.title} style={{ height: '180px', objectFit: 'cover' }} />
+              </div>
+              <Card.Body className="d-flex flex-column">
+                <Card.Title>{course.title}</Card.Title>
+                <Card.Text className="text-muted small mb-2">
+                  📁 {course.category}
+                </Card.Text>
+                <Button
+                  variant="danger"
+                  className="mt-auto"
+                  onClick={() => navigate(`/create-post/${course.id}`)}
+                >
+                  Enter this course
+                </Button>
+              </Card.Body>
+            </Card>
           </Col>
         ))}
       </Row>

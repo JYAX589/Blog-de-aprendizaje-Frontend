@@ -1,10 +1,21 @@
 import React from 'react';
-import CoursesListPage from './pages/CoursesListPage.jsx';
+import { Routes, Route } from 'react-router-dom';
+
+import CoursesListPage from './pages/CoursesListPage';
+import CreatePostPage from './pages/CreatePostPage';
+import AllPostsPage from './pages/AllPostsPage';
+
 
 function App() {
   return (
-    <div>
-      <CoursesListPage />
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<CoursesListPage />} />
+        <Route path="/create-post/:courseIdentifier" element={<CreatePostPage />} />
+        <Route path="/posts" element={<AllPostsPage />} />
+
+
+      </Routes>
     </div>
   );
 }
