@@ -1,35 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Card, Alert, Button } from 'react-bootstrap'; // Importa Button también
-import { getPosts } from '../services/postsApi'; // Importa la función para obtener todos los posts
-import { useNavigate } from 'react-router-dom'; // Para navegar de vuelta
+import { Container, Row, Col, Card, Alert, Button } from 'react-bootstrap'; 
+import { getPosts } from '../services/postsApi'; 
+import { useNavigate } from 'react-router-dom'; 
 
 
-// Define una imagen por defecto si no viene con el post
-const DEFAULT_POST_IMAGE = 'https://via.placeholder.com/300x200?text=Publicación'; // Placeholder con otro tamaño
+const DEFAULT_POST_IMAGE = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWDZJah2K82d1WgtUTbPggEDWm2trxJdXEew&s'; // Placeholder con otro tamaño
 
 
 function AllPostsPage() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // Para el botón de volver
+  const navigate = useNavigate(); 
 
-
-  // Función para obtener todos los posts desde el backend
   const fetchPosts = async () => {
     setLoading(true);
     setError(null);
     try {
-      const responseData = await getPosts(); // Llama a la función API getPosts
+      const responseData = await getPosts(); 
 
-      // Accedemos al array de posts dentro del objeto de respuesta y lo adaptamos
       if (responseData && Array.isArray(responseData.posts)) {
          const formattedPosts = responseData.posts.map(post => ({
               id: post._id,
               title: post.title,
-              // Usamos 'description' para el contenido principal ahora
               description: post.description,
-              category: post.course || 'General', // Usa el campo 'course' del post
+              category: post.course || 'General',
               imageUrl: post.imageUrl || DEFAULT_POST_IMAGE
          }));
          setPosts(formattedPosts);
@@ -47,8 +42,6 @@ function AllPostsPage() {
     }
   };
 
-
-  // useEffect para cargar posts al montar la página
   useEffect(() => {
     fetchPosts();
   }, []);
@@ -67,7 +60,6 @@ function AllPostsPage() {
       <h1>Todas las Publicaciones</h1>
       <p>Aquí puedes ver todas las publicaciones que se han creado.</p>
 
-      {/* Botón para volver a la página principal */}
        <div className="mb-3">
           <Button variant="secondary" onClick={() => navigate('/')}>
              Volver a Cursos
@@ -80,14 +72,11 @@ function AllPostsPage() {
           posts.map(post => (
             <Col key={post.id} xs={12} md={6} lg={4}>
               <Card>
-                 {/* Si tienes URL de imagen en el post */}
                  {post.imageUrl && <Card.Img variant="top" src={post.imageUrl} alt={post.title} style={{ height: '200px', objectFit: 'cover' }} />}
                  <Card.Body>
                     <Card.Title>{post.title}</Card.Title>
                      <Card.Subtitle className="mb-2 text-muted small">Curso: {post.category}</Card.Subtitle>
-                    {/* Muestra el contenido principal */}
                     <Card.Text>{post.description}</Card.Text>
-                    {/* Aquí podrías añadir botones para ver detalle, editar, eliminar */}
                  </Card.Body>
               </Card>
             </Col>
