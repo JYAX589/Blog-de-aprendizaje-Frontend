@@ -27,8 +27,6 @@ const fixedCourses = [
 ];
 
 
-
-
 function CoursesListPage() {
   const navigate = useNavigate();
 

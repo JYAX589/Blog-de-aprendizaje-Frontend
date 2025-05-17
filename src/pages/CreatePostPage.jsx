@@ -68,7 +68,7 @@ function CreatePostPage() {
               <Form.Label>Descripción</Form.Label>
               <Form.Control
                 as="textarea"
-                rows={8} // Ajusta el número de filas según necesites
+                rows={8} // Ajusta el número de filas según se necesite
                 placeholder="Ingresa el contenido completo de la publicación"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
